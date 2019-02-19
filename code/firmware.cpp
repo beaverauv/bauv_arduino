@@ -1,26 +1,26 @@
 #include <ros.h>
 #include <std_msgs/String.h>
-//#include <bauv_arduino/thruster_percents.h>
-
+#include <bauv_motor_control/motor_Values.h>
 #include <Arduino.h>
+#include <Servo.h>
 
 ros::NodeHandle nh;
+bauv_motor_control::motor_Values motor_values_msg;
 
-std_msgs::String str_msg;
-ros::Publisher chatter("chatter", &str_msg);
+void motor_Cb(const bauv_motor_control::motor_Values& data) {
 
-char hello[13] = "hello world!";
+}
+
+ros::Subscriber<bauv_motor_control::motor_Values> sub("/thruster_values", &motor_Cb );
 
 void setup()
 {
   nh.initNode();
-  nh.advertise(chatter);
+  nh.subscribe(sub);
 }
 
 void loop()
 {
-  str_msg.data = hello;
-  chatter.publish( &str_msg );
   nh.spinOnce();
-  delay(1000);
+  delay(1);
 }

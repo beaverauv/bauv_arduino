@@ -4,7 +4,7 @@ project(bauv_arduino)
 find_package(catkin REQUIRED COMPONENTS
   rosserial_arduino
   rosserial_client
-  message_generation
+  bauv_motor_control
   std_msgs
 )
 
@@ -13,14 +13,10 @@ rosserial_generate_ros_lib(
   SCRIPT make_libraries.py
 )
 
-add_message_files(
-  FILES
-  thruster_percents.msg
-)
-
 generate_messages(
    DEPENDENCIES
    std_msgs
+   bauv_motor_control
 )
 
 rosserial_configure_client(
