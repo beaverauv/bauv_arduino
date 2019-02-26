@@ -1,6 +1,7 @@
 #include <ros.h>
 #include <std_msgs/String.h>
 #include <bauv_motor_control/motor_Values.h>
+#include <sensor_msgs/BatteryState.h>
 #include <Arduino.h>
 #include <Servo.h>
 

@@ -20,7 +20,6 @@ find_package(catkin REQUIRED COMPONENTS
 #add_executable(firmware code/firmware.cpp)
 #add_dependencies(firmware ${catkin_EXPORTED_TARGETS})
 
-#include_directories(${catkin_INCLUDE_DIRS})
 
 generate_messages()
 
@@ -29,16 +28,7 @@ catkin_package(
 #  CATKIN_DEPENDS message_runtime bauv_motor_control std_msgs
 )
 
-#include_directories(${catkin_INCLUDE_DIRS})
-
-
-#add_executable(
-#  bauv_motor_control code/firmware.cpp
-#)
-
-#add_dependencies (
-#  bauv_motor_control ${catkin_EXPORTED_TARGETS}
-#)
+include_directories(${catkin_INCLUDE_DIRS})
 
 rosserial_generate_ros_lib(
   PACKAGE rosserial_arduino
