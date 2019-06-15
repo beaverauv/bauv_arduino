@@ -12,7 +12,7 @@ project(bauv_arduino)
 find_package(catkin REQUIRED COMPONENTS
   rosserial_arduino
   rosserial_client
-  bauv_motor_control
+  motor_control
   std_msgs
   message_generation
 )

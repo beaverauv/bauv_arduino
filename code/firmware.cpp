@@ -43,6 +43,16 @@ void setup()
 	shfr.attach(7);
 	shbl.attach(8);
 	shbr.attach(9);
+
+	svfl.writeMicroseconds(1500);
+        svfr.writeMicroseconds(1500);
+        svbl.writeMicroseconds(1500);
+        svbr.writeMicroseconds(1500);
+        shfl.writeMicroseconds(1500);
+        shfr.writeMicroseconds(1500);
+        shbl.writeMicroseconds(1500);
+        shbr.writeMicroseconds(1500);
+	delay(100);
 }
 
 void loop()
