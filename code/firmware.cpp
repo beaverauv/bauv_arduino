@@ -12,6 +12,8 @@
 #define ESC_MAX_R_VALUE 1000+LIMITER
 #define ESC_MIN_R_VALUE 1478
 
+#hall effect connected to A0
+
 ros::NodeHandle nh;
 motor_control::motor_Values motor_values_msg;
 
