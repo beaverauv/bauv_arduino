@@ -6,14 +6,14 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-#define LIMITER 250
+#define LIMITER 0
 
 #define ESC_MAX_F_VALUE 2000-LIMITER
-#define ESC_MIN_F_VALUE 1528
+#define ESC_MIN_F_VALUE 1528 //1528
 #define ESC_MAX_R_VALUE 1000+LIMITER
-#define ESC_MIN_R_VALUE 1478
+#define ESC_MIN_R_VALUE 1480 //1478
 
-#hall effect connected to A0
+//hall effect connected to A0
 
 bool flag = true;
 bool motor_enabled = true;
@@ -34,10 +34,10 @@ Servo shbl;
 Servo shbr;
 
 int motor_map(int value) {
-	if (value > ESC_MIN_F_VALUE) {
+	if (value > 0) {
 		return map(value, 0, 100, ESC_MIN_F_VALUE, ESC_MAX_F_VALUE);
 	}
-	else if (value < ESC_MIN_R_VALUE) {
+	else if (value < 0) {
 		return map(value, 0, -100, ESC_MIN_R_VALUE, ESC_MAX_R_VALUE);
 	}
 	else {
@@ -70,8 +70,7 @@ void motor_Cb(const motor_control::motor_Values& data) {
 
 ros::Subscriber<motor_control::motor_Values> sub("/thruster_values", &motor_Cb );
 
-void setup()
-{
+void setup() {
 	nh.initNode();
 	nh.subscribe(sub);
 	nh.advertise(motor_enabler);
@@ -102,21 +101,33 @@ void loop()
 	
 	if (detectValue > 50) {
 		if (flag == false) {
-			//Serial.println("Active");
+			motor_enabled = true;
+
+			bool_msg.data = motor_enabled;
+		        motor_enabler.publish(&bool_msg);
+
 			flag = true;
-			motor_enabled = true
 		}
 	}
 	else {
 		if (flag == true) {
-			//Serial.println("Deactive");
+			motor_enabled = false;
+
+			svfl.writeMicroseconds(1500);
+	                svfr.writeMicroseconds(1500);
+        	        svbl.writeMicroseconds(1500);
+			svbr.writeMicroseconds(1500);
+                	shfl.writeMicroseconds(1500);
+                	shfr.writeMicroseconds(1500);
+                	shbl.writeMicroseconds(1500);
+                	shbr.writeMicroseconds(1500);
+
+			bool_msg.data = motor_enabled;
+		        motor_enabler.publish(&bool_msg);
+
 			flag = false;
-			motor_enabled = false
 		}
 	}
-
-	bool_msg.data = motor_enabled;
-	motor_enabler.publish(&bool_msg);
 
 	nh.spinOnce();
 	delay(1);
