@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-#define LIMITER 0
+#define LIMITER 250
 
 #define ESC_MAX_F_VALUE 2000-LIMITER
 #define ESC_MIN_F_VALUE 1528 //1528
