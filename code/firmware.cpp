@@ -77,14 +77,14 @@ void setup() {
 	nh.subscribe(sub);
 	nh.advertise(motor_enabler);
 
-	svfl.attach(4);
-	svfr.attach(6);
-	svbl.attach(3);
-	svbr.attach(8);
-	shfl.attach(5);
-	shfr.attach(7);
-	shbl.attach(2);
-	shbr.attach(9);
+	svfl.attach(6);
+	svfr.attach(4);
+	svbl.attach(8);
+	svbr.attach(3);
+	shfl.attach(7);
+	shfr.attach(5);
+	shbl.attach(9);
+	shbr.attach(2);
 
 	svfl.writeMicroseconds(1500);
         svfr.writeMicroseconds(1500);
