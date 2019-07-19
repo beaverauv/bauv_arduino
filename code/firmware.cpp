@@ -34,6 +34,8 @@ Servo shbl;
 Servo shbr;
 
 int motor_map(int value) {
+	value = value * -1;
+
 	if (value > 0) {
 		return map(value, 0, 100, ESC_MIN_F_VALUE, ESC_MAX_F_VALUE);
 	}
@@ -47,14 +49,14 @@ int motor_map(int value) {
 
 void motor_Cb(const motor_control::motor_Values& data) {
 	if (motor_enabled == true) {
-		svfl.writeMicroseconds(motor_map(data.vrf));
-		svfr.writeMicroseconds(motor_map(data.vlf));
-		svbl.writeMicroseconds(motor_map(data.vrb));
-		svbr.writeMicroseconds(motor_map(data.vlb));
-		shfl.writeMicroseconds(motor_map(data.hrf));
-		shfr.writeMicroseconds(motor_map(data.hlf));
-		shbl.writeMicroseconds(motor_map(data.hrb));
-		shbr.writeMicroseconds(motor_map(data.hlb));
+		svfl.writeMicroseconds(motor_map(data.vlf));
+		svfr.writeMicroseconds(motor_map(data.vrf));
+		svbl.writeMicroseconds(motor_map(data.vlb));
+		svbr.writeMicroseconds(motor_map(data.vrb));
+		shfl.writeMicroseconds(motor_map(data.hlf));
+		shfr.writeMicroseconds(motor_map(data.hrf));
+		shbl.writeMicroseconds(motor_map(data.hlb));
+		shbr.writeMicroseconds(motor_map(data.hrb));
 	}
 	else {
                 svfl.writeMicroseconds(1500);
@@ -75,13 +77,13 @@ void setup() {
 	nh.subscribe(sub);
 	nh.advertise(motor_enabler);
 
-	svfl.attach(2);
-	svfr.attach(3);
-	svbl.attach(4);
-	svbr.attach(5);
-	shfl.attach(6);
+	svfl.attach(4);
+	svfr.attach(6);
+	svbl.attach(3);
+	svbr.attach(8);
+	shfl.attach(5);
 	shfr.attach(7);
-	shbl.attach(8);
+	shbl.attach(2);
 	shbr.attach(9);
 
 	svfl.writeMicroseconds(1500);
